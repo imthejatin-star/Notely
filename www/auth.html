@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  >
+
+  <title>Notely — Account</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="auth.css">
+</head>
+
+<body>
+
+  <main class="auth-page">
+
+    <section class="auth-card">
+
+      <div class="brand">
+        <div class="brand-mark">N</div>
+
+        <div>
+          <h1>Notely</h1>
+          <p>Your notes, everywhere.</p>
+        </div>
+      </div>
+
+      <div class="auth-heading">
+        <h2 id="authTitle">Welcome back</h2>
+        <p id="authSubtitle">
+          Sign in to keep your notes synced across devices.
+        </p>
+      </div>
+
+      <form id="authForm">
+
+        <div class="field">
+          <label for="email">Email</label>
+
+          <input
+            id="email"
+            type="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            required
+          >
+        </div>
+
+        <div class="field" id="passwordField">
+          <label for="password">Password</label>
+
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Enter your password"
+            required
+          >
+        </div>
+
+        <div class="field hidden" id="confirmPasswordField">
+          <label for="confirmPassword">Confirm password</label>
+
+          <input
+            id="confirmPassword"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Enter your password again"
+          >
+        </div>
+
+        <button
+          type="submit"
+          class="primary-button"
+          id="submitButton"
+        >
+          Sign in
+        </button>
+
+      </form>
+
+      <button
+        type="button"
+        class="forgot-button"
+        id="forgotButton"
+      >
+        Forgot password?
+      </button>
+
+      <div
+        class="message"
+        id="message"
+        role="status"
+        aria-live="polite"
+      ></div>
+
+      <div class="divider">
+        <span>or</span>
+      </div>
+
+      <button
+        type="button"
+        class="secondary-button"
+        id="modeButton"
+      >
+        Create an account
+      </button>
+
+      <p class="security-note">
+        Your notes are private to your account.
+      </p>
+
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script type="module" src="auth.js"></script>
+
+</body>
+  </html>
