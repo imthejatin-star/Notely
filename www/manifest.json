@@ -1,0 +1,19 @@
+{
+"name": "Notely",
+"short_name": "Notely",
+"description": "A premium, private-first notes and checklist app.",
+"start_url": "./index.html",
+"scope": "./",
+"display": "standalone",
+"orientation": "portrait",
+"background_color": "#0a0a0c",
+"theme_color": "#0a0a0c",
+"icons": [
+{
+"src": "../assets/notely-icon.png",
+"sizes": "1024x1024",
+"type": "image/png",
+"purpose": "any maskable"
+}
+]
+}
