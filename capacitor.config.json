@@ -1,0 +1,8 @@
+{
+  "appId": "com.notely.app",
+  "appName": "Notely",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}
