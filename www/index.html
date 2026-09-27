@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0c10">
+  <meta name="description" content="Notely — premium notes and tasks">
+  <title>Notely — Notes & Tasks</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="brand">
+        <div class="brand-mark">N</div>
+        <div>
+          <div class="brand-name">Notely</div>
+          <div class="brand-sub">Notes & Tasks</div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button class="icon-btn" id="searchBtn" aria-label="Search">⌕</button>
+        <button class="icon-btn" id="themeBtn" aria-label="Change theme">◐</button>
+      </div>
+    </header>
+
+    <!-- SEARCH -->
+    <section class="search-panel" id="searchPanel">
+      <div class="search-box">
+        <span>⌕</span>
+        <input id="searchInput" type="search" placeholder="Search notes, labels, tasks...">
+        <button id="clearSearch" class="search-clear">×</button>
+      </div>
+    </section>
+
+    <!-- FILTER TABS -->
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-filter="all">All</button>
+      <button class="tab" data-filter="notes">Notes</button>
+      <button class="tab" data-filter="tasks">Tasks</button>
+      <button class="tab" data-filter="favorites">Favorites</button>
+      <button class="tab" data-filter="pinned">Pinned</button>
+      <button class="tab" data-filter="archive">Archive</button>
+      <button class="tab" data-filter="trash">Trash</button>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <section class="hero">
+        <div>
+          <p class="eyebrow" id="dateLabel">TODAY</p>
+          <h1 id="pageTitle">Your space.<br><span>Your thoughts.</span></h1>
+        </div>
+
+        <div class="hero-actions">
+          <button class="sort-btn" id="sortBtn">
+            <span id="sortLabel">Recent</span>
+            <span>⌄</span>
+          </button>
+
+          <div class="sort-menu" id="sortMenu">
+            <button data-sort="updated">Recently updated</button>
+            <button data-sort="created">Recently created</button>
+            <button data-sort="az">A → Z</button>
+            <button data-sort="za">Z → A</button>
+            <button data-sort="reminder">Reminder</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- LABEL FILTERS -->
+      <section class="label-filter-wrap">
+        <div class="section-label">Labels</div>
+        <div class="label-filters" id="labelFilters"></div>
+      </section>
+
+      <!-- STATS -->
+      <section class="stats">
+        <div class="stat-card">
+          <span class="stat-value" id="noteCount">0</span>
+          <span class="stat-label">Notes</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="taskCount">0</span>
+          <span class="stat-label">Tasks</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="favoriteCount">0</span>
+          <span class="stat-label">Favorites</span>
+        </div>
+      </section>
+
+      <!-- NOTES -->
+      <section class="content">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">YOUR COLLECTION</span>
+            <h2 id="collectionTitle">All notes</h2>
+          </div>
+          <span class="result-count" id="resultCount">0</span>
+        </div>
+
+        <div class="notes-grid" id="notesGrid"></div>
+
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">✦</div>
+          <h3 id="emptyTitle">Nothing here yet</h3>
+          <p id="emptyText">Create your first note and make this space yours.</p>
+          <button class="primary-btn" id="emptyCreateBtn">Create note</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- FAB -->
+    <button class="fab" id="fab" aria-label="Create">
+      <span>+</span>
+    </button>
+
+    <div class="create-menu" id="createMenu">
+      <button data-create="note">
+        <span class="create-icon note-icon">N</span>
+        <span>
+          <strong>New note</strong>
+          <small>Write anything</small>
+        </span>
+      </button>
+
+      <button data-create="checklist">
+        <span class="create-icon task-icon">✓</span>
+        <span>
+          <strong>New checklist</strong>
+          <small>Plan and complete</small>
+        </span>
+      </button>
+    </div>
+
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- EDITOR -->
+    <section class="editor" id="editor">
+      <header class="editor-header">
+        <button class="editor-close" id="editorClose">×</button>
+
+        <div class="editor-title-area">
+          <span id="editorMode">NOTE</span>
+          <small id="autosaveStatus">Saved</small>
+        </div>
+
+        <div class="editor-actions">
+          <button class="editor-action" id="editorFavorite" title="Favorite">☆</button>
+          <button class="editor-action" id="editorPin" title="Pin">⌖</button>
+          <button class="save-btn" id="saveBtn">Save</button>
+        </div>
+      </header>
+
+      <div class="editor-scroll">
+
+        <div class="editor-meta-row">
+          <button class="color-dot active" data-color="default"></button>
+          <button class="color-dot yellow" data-color="yellow"></button>
+          <button class="color-dot blue" data-color="blue"></button>
+          <button class="color-dot green" data-color="green"></button>
+          <button class="color-dot pink" data-color="pink"></button>
+          <button class="color-dot purple" data-color="purple"></button>
+          <button class="color-dot orange" data-color="orange"></button>
+        </div>
+
+        <input
+          id="noteTitle"
+          class="editor-note-title"
+          maxlength="180"
+          placeholder="Title"
+          autocomplete="off"
+        >
+
+        <div class="editor-options">
+
+          <div class="field-group">
+            <label>Label</label>
+            <div class="label-input-row">
+              <select id="noteLabel">
+                <option value="">No label</option>
+                <option value="School">School</option>
+                <option value="Personal">Personal</option>
+                <option value="Ideas">Ideas</option>
+              </select>
+              <button id="addLabelBtn" class="small-add-btn">+</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>Reminder</label>
+            <input id="noteReminder" type="datetime-local">
+          </div>
+
+        </div>
+
+        <!-- RICH TEXT -->
+        <div class="rich-editor-wrap" id="richEditorWrap">
+          <div class="format-toolbar">
+            <button data-command="bold" title="Bold"><b>B</b></button>
+            <button data-command="italic" title="Italic"><i>I</i></button>
+            <button data-command="underline" title="Underline"><u>U</u></button>
+
+            <span class="toolbar-divider"></span>
+
+            <button data-command="formatBlock" data-value="h2" title="Heading">H</button>
+            <button data-command="insertUnorderedList" title="Bullet list">•</button>
+            <button data-command="insertOrderedList" title="Numbered list">1.</button>
+
+            <span class="toolbar-divider"></span>
+
+            <button data-command="removeFormat" title="Clear formatting">Tx</button>
+          </div>
+
+          <div
+            id="richEditor"
+            class="rich-editor"
+            contenteditable="true"
+            spellcheck="true"
+            data-placeholder="Start writing..."
+          ></div>
+
+          <div class="editor-footer">
+            <span id="wordCount">0 words</span>
+            <span id="charCount">0 characters</span>
+          </div>
+        </div>
+
+        <!-- CHECKLIST -->
+        <div class="checklist-editor" id="checklistEditor">
+          <div class="checklist-top">
+            <div>
+              <span class="section-kicker">CHECKLIST</span>
+              <h3>Tasks</h3>
+            </div>
+            <div class="check-progress" id="checkProgress">0%</div>
+          </div>
+
+          <div class="progress-track">
+            <div id="progressBar"></div>
+          </div>
+
+          <div class="checklist-items" id="checklistItems"></div>
+
+          <div class="checklist-add">
+            <input id="checkInput" placeholder="Add a task..." maxlength="300">
+            <button id="addCheckBtn">+</button>
+          </div>
+
+          <div class="checklist-bottom-actions">
+            <button id="clearCompletedBtn">Clear completed</button>
+            <button id="showCompletedBtn">Hide completed</button>
+          </div>
+        </div>
+
+        <div class="editor-bottom">
+          <span id="createdInfo"></span>
+          <button id="deleteFromEditor" class="danger-text">Move to trash</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIDE MENU -->
+    <aside class="side-menu" id="sideMenu">
+
+      <div class="side-header">
+        <div class="brand">
+          <div class="brand-mark">N</div>
+          <div>
+            <div class="brand-name">Notely</div>
+            <div class="brand-sub">Notes & Tasks</div>
+          </div>
+        </div>
+
+        <button class="icon-btn" id="closeMenu">×</button>
+      </div>
+
+      <div class="side-content">
+
+        <div class="side-section">
+          <span class="side-heading">Library</span>
+
+          <button class="side-item active" data-filter="all">
+            <span>⌂</span> All notes
+          </button>
+
+          <button class="side-item" data-filter="notes">
+            <span>▱</span> Notes
+          </button>
+
+          <button class="side-item" data-filter="tasks">
+            <span>☑</span> Checklists
+          </button>
+
+          <button class="side-item" data-filter="favorites">
+            <span>☆</span> Favorites
+          </button>
+
+          <button class="side-item" data-filter="pinned">
+            <span>⌖</span> Pinned
+          </button>
+
+          <button class="side-item" data-filter="archive">
+            <span>▱</span> Archive
+          </button>
+
+          <button class="side-item" data-filter="trash">
+            <span>⌫</span> Trash
+          </button>
+        </div>
+
+        <div class="side-section">
+          <span class="side-heading">Data</span>
+
+          <button class="side-item" id="exportBtn">
+            <span>↓</span> Export backup
+          </button>
+
+          <button class="side-item" id="importBtn">
+            <span>↑</span> Import backup
+          </button>
+
+          <input type="file" id="importFile" accept=".json" hidden>
+        </div>
+
+        <div class="side-section">
+          <span class="side-heading">Preferences</span>
+
+          <button class="side-item" id="sideThemeBtn">
+            <span>◐</span> Toggle theme
+          </button>
+
+          <button class="side-item danger" id="clearAllBtn">
+            <span>⌫</span> Clear all data
+          </button>
+        </div>
+
+      </div>
+
+      <div class="side-footer">
+        <span>Notely</span>
+        <span>Local-first</span>
+      </div>
+    </aside>
+
+    <!-- CONTEXT MENU -->
+    <div class="context-menu" id="contextMenu"></div>
+
+    <!-- CUSTOM DIALOG -->
+    <div class="dialog-layer" id="dialogLayer">
+      <div class="dialog">
+        <div class="dialog-icon">!</div>
+        <h3 id="dialogTitle">Are you sure?</h3>
+        <p id="dialogText"></p>
+
+        <div class="dialog-actions">
+          <button id="dialogCancel" class="secondary-btn">Cancel</button>
+          <button id="dialogConfirm" class="danger-btn">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LABEL DIALOG -->
+    <div class="dialog-layer" id="labelDialog">
+      <div class="dialog">
+        <div class="dialog-icon">+</div>
+        <h3>Create label</h3>
+        <p>Give your notes a simple category.</p>
+
+        <input id="newLabelInput" class="dialog-input" maxlength="30" placeholder="e.g. Exams">
+
+        <div class="dialog-actions">
+          <button id="labelCancel" class="secondary-btn">Cancel</button>
+          <button id="labelConfirm" class="primary-btn">Create</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- UNSAVED DIALOG -->
+    <div class="dialog-layer" id="unsavedDialog">
+      <div class="dialog">
+        <div class="dialog-icon">✦</div>
+        <h3>Unsaved changes</h3>
+        <p>You have changes that haven't been saved yet.</p>
+
+        <div class="dialog-actions stacked">
+          <button id="saveAndCloseBtn" class="primary-btn">Save & close</button>
+          <button id="discardAndCloseBtn" class="secondary-btn">Discard changes</button>
+          <button id="keepEditingBtn" class="ghost-btn">Keep editing</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- UNDO -->
+    <div class="undo-bar" id="undoBar">
+      <span>Note moved to trash</span>
+      <button id="undoBtn">Undo</button>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
